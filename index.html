@@ -1,0 +1,486 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+         <style>
+            :root {
+               --main-color: rgb(36,37,44);
+               --main-white: #e8eaed;
+               --input-bg:rgb(54,54,54);
+               --input-bg-hover: rgb(72,72,72);
+               --page-font: 'Amatic SC', cursive;
+            }
+            /* Chrome, Safari, Edge, Opera */
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            }
+
+            /* Firefox */
+            input[type=number] {
+            -moz-appearance: textfield;
+            }
+            .body-fade {
+                transition: opacity 3s;
+                transition-delay: 1s;
+                pointer-events: none;
+                opacity: 1;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgb(53,55,64);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 20;
+            }
+                        
+            .ls-wrapper {
+                padding: 36px 48px;
+            }
+            body {
+                background: var(--main-color);
+            }
+            .text-xl {
+                font-family: var(--page-font);
+                font-size: 48px;
+                color:var(--main-white);   
+                margin: 12px 0;
+            }
+            .text-lg {
+                font-family: var(--page-font);
+                font-size: 44px;
+                color:var(--main-white);   
+                margin: 14px 0;
+                font-weight: 700;
+            }
+            .text-med {
+                font-family: var(--page-font);
+                font-size: 34px;
+                color:var(--main-white);               
+            }
+            p {
+                font-family: var(--page-font);
+                font-size: 28px;
+                color:var(--main-white);   
+            }
+            .text-sm {
+                font-family: var(--page-font);
+                font-size: 20px;
+                color:var(--main-white);        
+            }
+            .text-xs {
+                font-family: var(--page-font);
+                font-size: 16px;
+                color:var(--main-white);        
+            }
+            .flex-row {
+                display: flex;
+                align-items: center;
+            }
+            .duration-column {
+                display: flex;
+                flex-direction: column;
+            }
+            .modify-column {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-left: 8px;
+            }
+            input {
+                border-radius: 4px;
+                border: 0;
+                outline: none;
+                color:var(--main-white); 
+                background: var(--input-bg);
+                font-family:  var(--page-font);
+                font-weight:700;
+                padding: 3px 0 0 6px;
+                width: 128px;
+                font-size: 28px;
+            }
+            .input-lg {
+                margin-left: 12px;
+                padding: 4px 0 0 8px;
+                width: 88px;
+                font-size: 48px;
+            }
+            .input-med {
+                margin-left: 8px;
+                padding: 3px 0 0 6px;
+                width: 128px;
+                font-size: 28px;
+            }
+            button {
+                border: 0;
+                background-color: var(--input-bg);
+                color: var(--main-white);
+                font-family:var(--page-font);
+                font-size: 32px;
+                width: 80px;
+                border-radius: 4px;
+                cursor:pointer;
+            }
+            button:hover {
+                background-color: var(--input-bg-hover);
+            }
+
+            select {
+                -webkit-appearance: none;
+                appearance: none;
+                color: var(--main-white);
+                background-color: var(--input-bg);
+                outline: 0;
+                border-radius: 3px;
+                font-family: var(--page-font);
+                font-size: 27px;
+                margin: 0;
+            }
+            input[type="radio"] {
+                margin: 0;
+                margin-right: 4px;
+                width: 24px;
+                height: 24px;
+                position: relative;
+            }
+            input[type="radio"]:checked:after {
+                background-color: var(--input-bg-hover);
+                position: absolute;
+                content: '';
+                height: 16px;
+                width: 16px;
+                border-radius: 20px;
+                border: 4px solid white;
+            }
+            .no-margin {
+                margin: 0;
+            }
+            .add-event-wrapper {
+                margin-top: 88px;
+                display: none;
+            }
+            /* Event Form Stylings
+            These are all done as child classes so we don't need to add a million classes when
+            generating these with js*/
+            
+            .event-form {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+            .event-form p {
+                margin: 0;
+            }
+            .event-form > input {
+                font-size: 32px;
+                width: 240px;
+                margin-top: 8px;
+            }
+            .occurs-row,
+            .frequency-row,
+            .duration-row {
+                display: flex;
+                align-items: center;
+                margin: 12px 16px 0;
+            }
+            .occurs-row > p,
+            .frequency-row > p,
+            .duration-row > p {
+                width: 120px;
+            }
+            .occurs-row input[type="number"],
+            .frequency-row input[type="number"],
+            .duration-row input[type="number"] {
+                width: 56px;
+            }
+            .frequency-row select, .duration-row select {
+                margin-left: 2px;
+            }
+            .duration-row  {
+                align-items: flex-start;
+            }
+            .occurs-row input {
+                margin-right: 4px;
+            }
+            .event-form button {
+                margin-top: 32px;
+            }
+
+            .event-delete, .event-edit {
+                font-family: var(--page-font);
+                font-size: 20px;
+                color:var(--main-white);
+                margin: 0 4px;
+                cursor: pointer;
+            }
+            .event-delete:hover, .event-edit:hover {
+                color: var(--input-bg-hover);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="body-fade" id="fadeintro">
+            <h1 class="text-xl">Life's Short</h1>
+        </div>
+        <div class="ls-wrapper">
+            <h2 class="text-lg">Life's Short</h2>
+            <div class="flex-row">
+                <label class="text-xl" for="age">Age</label>
+                <input type="number" id="age-input" name="age" class="input-lg"/>
+            </div>
+
+            <div id="events-list">
+            </div>
+
+            <div id="add-event" class="add-event-wrapper">
+                <p class="text-med no-margin">Add Event:</p>
+                <div class="event-form">
+                    <input type="text" id="new-name" placeholder="event name"/>
+                    <div class="occurs-row">
+                        <p>Occurs </p>
+                        <input type="number" id="new-times-per-period"/>
+                        <p>times</p>
+                    </div>
+                    <div class="frequency-row">
+                        <p>every</p>
+                        <input type="number" id="new-frequency-count">
+                        <select id="new-frequency-period">
+                            <option value="day">Day(s)</option>
+                            <option value="week">Week(s)</option>
+                            <option value="month">Month(s)</option>
+                            <option value="year">Year(s)</option>
+                        </select>
+                    </div>
+                    <div class="duration-row">
+                        <p>For the next</p>
+                        <div class="duration-column">
+                            <div class="flex-row">
+                                <input type="radio" id="new-duration-lifetime" name="duration-type" value="lifetime"/>
+                                <label for="lifetime" class="text-med">Lifetime</label>
+                            </div>
+                            <div class="flex-row">
+                                <input type="radio" id="new-duration-custom" name="duration-type" value="custom-duration"/>
+                                <input type="number" id="new-duration-count">
+                                <select id="new-duration-period">
+                                    <option value="day">Day(s)</option>
+                                    <option value="week">Week(s)</option>
+                                    <option value="month">Month(s)</option>
+                                    <option value="year">Year(s)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="new-save-button">Save</button>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            
+            var MAX_AGE = 80; // avg life expectancy
+            var DEFAULT_EVENTS = [{key: '0', event: 'Birthdays', timesPerPeriod: 1, frequencyCount: 1, frequencyPeriod: 'year', deletable: false},
+            {key: '1', event:'Sunsets', timesPerPeriod:1, frequencyCount:1, frequencyPeriod:'day', deletable: false}, 
+                {key: '2',event:'Full Moons', timesPerPeriod:1, frequencyCount:29.5, frequencyPeriod: 'day', deletable: false},
+                ]
+
+            var RELATIONS = {
+                day: {
+                    day: 1,
+                    week: 7,
+                    month: 30.437,
+                    year: 365,
+                },
+                week: {
+                    week: 1,
+                    month: 4.34524,
+                    year: 52.1429
+                },
+                month: {
+                    month: 1,
+                    year: 12,
+                },
+                year: {
+                    year:1
+                }
+            }
+            // load in prev state
+            var lsData;
+            var existing = localStorage.getItem('lifes-short');
+            try {
+                if (existing) {
+                    lsData = JSON.parse(existing);
+                }
+            } catch(e) {
+                console.error(e);
+                localStorage.setItem('lifes-short-failure', existing);
+                localStorage.removeItem('lifes-short');
+            }
+
+            // initial fade of body in
+            var bodyFadeIntro = document.getElementById('fadeintro');
+            if (lsData && lsData.age) {
+                bodyFadeIntro.style.display = 'none';
+                document.getElementById('add-event').style.display = 'block';
+            } else {
+                bodyFadeIntro.style.opacity = 0;
+            }
+
+
+            // main functionality, renders form based data in lsData
+            var eventsElem = document.getElementById('events-list');
+            function drawEvents() {
+                if (!lsData || !lsData.events || !Array.isArray(lsData.events)) return;
+                lsData.events.forEach(function(e) {
+                    var elemExists = document.getElementById(e.key + '-value');
+                    // event data has changed but elements dont need to be redrawn
+                    if (elemExists) {
+                        elemExists.innerText = e.event + ': ' + eventOccurences(e, lsData.age);
+                    } else {
+                        // draw all the elemnts for editing and adding stuff
+                        var elem = createEventElements(e);
+   
+                        eventsElem.appendChild(elem);
+                    }
+                    localStorage.setItem('lifes-short', JSON.stringify(lsData));
+                });
+            }
+            function createEventElements(e) {
+                var wrapper = document.createElement('div');
+                wrapper.setAttribute('id', e.key + '-wrapper');
+                wrapper.classList.add('event-form');
+                var valueRow = document.createElement('div');
+                valueRow.classList.add('flex-row');
+                var modifyColumn = document.createElement('div');
+                modifyColumn.classList.add('modify-column');
+                var value = document.createElement('p');
+                value.setAttribute('id', e.key + '-value');
+                value.classList.add('text-lg');
+                value.innerText = e.event + ': ' + eventOccurences(e, lsData.age);
+                valueRow.appendChild(value);
+                valueRow.appendChild(modifyColumn);
+                wrapper.appendChild(valueRow);
+
+                //var eventForm = createEventForm(e);
+                //wrapper.appendChild(eventForm);
+                if (e.deletable) {
+                    // add edit button
+
+                    // remove event & unbind listeners
+                    var deleteButton = document.createElement('div');
+                    function deleteEvent() {
+                        deleteButton.removeEventListener('click', deleteEvent);
+                        wrapper.parentNode.removeChild(wrapper);
+                        var eventIndex = lsData.events.findIndex(function(ei){
+                            return ei.event === e.event;
+                        });
+                        if (eventIndex > -1) {
+                            lsData = {...lsData, events: [...lsData.events.slice(0, eventIndex), ...lsData.events.slice(eventIndex + 1)] };
+                            localStorage.setItem('lifes-short', JSON.stringify(lsData));
+                        }
+                    }
+                    deleteButton.classList.add('event-delete');
+                    deleteButton.addEventListener('click', deleteEvent);
+                    deleteButton.innerText = 'X';
+                    modifyColumn.appendChild(deleteButton);
+                }
+                return wrapper;
+            }
+
+            // does dynamic updating of all our stats on input
+            function addAgeInputListener() {
+                var ageInput = document.getElementById("age-input");
+                if (lsData && lsData.age) {
+                    ageInput.value = lsData.age;
+                }
+                var debounceAgeInput;
+                ageInput.addEventListener('keyup', function(e){
+                    if (debounceAgeInput) clearTimeout(debounceAgeInput);
+                    debounceAgeInput = setTimeout(function(){
+                        var val = Number(e.target.value);
+                        document.getElementById('add-event').style.display = 'block';
+                        if (lsData && lsData.age === val) return;
+                        if (val < 0) val = 0;
+                        if (val > MAX_AGE) val = MAX_AGE;
+                        e.target.value = val;
+                        if (!lsData || !lsData.events) {
+                            lsData = {age:val, events: DEFAULT_EVENTS};
+                        } else {
+                            lsData = {...lsData, age:val};
+                        }
+                        drawEvents();
+                        
+                    }, 200);
+                });
+            }
+
+            // add listener to a form based on event name
+            function addSaveButtonListener(key) {
+                function updateEvent(){
+                    try {
+                    var name = document.getElementById(`${key}-name`).value;
+                    var timesPerPeriod = document.getElementById(`${key}-times-per-period`).value;
+                    var frequencyCount = document.getElementById(`${key}-frequency-count`).value;
+                    var frequencyPeriod = document.getElementById(`${key}-frequency-period`).value;
+                    var durationLifetime = document.getElementById(`${key}-duration-lifetime`).checked;
+                    var durationCustom = document.getElementById(`${key}-duration-custom`).checked;
+                    var durationCount = document.getElementById(`${key}-duration-count`).value;
+                    var durationPeriod = document.getElementById(`${key}-duration-period`).value;
+                    if (!name || 
+                    !timesPerPeriod || 
+                     !frequencyCount || 
+                     !frequencyPeriod) return;
+                     if (!durationLifetime && (!durationCustom || !durationCount || !durationPeriod))return;
+                    var saveEvent = {
+                        event:name,
+                        timesPerPeriod: Number(timesPerPeriod), 
+                        frequencyCount: Number(frequencyCount), 
+                        frequencyPeriod: frequencyPeriod, 
+                        deletable: true
+                    };
+                    if (durationCustom) {
+                        saveEvent.durationCount = Number(durationCount);
+                        saveEvent.durationPeriod = durationPeriod;
+                    }
+                    if (key === 'new') {
+                        saveEvent.key = lsData.events.length;
+                        lsData.events.push(saveEvent);
+                        drawEvents();
+                    }
+                    }catch(e) {
+                        console.error('unidentified element', e);
+                    }
+
+                }
+                var saveButton = document.getElementById(`${key}-save-button`);
+                saveButton.addEventListener('click', updateEvent);
+            }
+
+
+            //{event:'First day of the month', timesPerPeriod: 1, frequencyCount:1, frequencyPeriod: 'month', durationCount: 20, durationPeriod: years},
+            function eventOccurences(event, age) {
+                var timeToEnd;
+                // convert everything to days, then upscale it at the end
+                var durationDays;
+                if (event.durationCount && event.durationPeriod) {
+                    durationDays = event.durationCount * RELATIONS.day[event.durationPeriod];
+                } else {
+                    durationDays = (MAX_AGE - age) * RELATIONS.day['year'];
+                }
+                var timesPerDay = event.timesPerPeriod / (event.frequencyCount * RELATIONS.day[event.frequencyPeriod]);
+                return Math.ceil(timesPerDay * durationDays);
+            }
+            // add a listener for age input
+            addAgeInputListener();
+            addSaveButtonListener('new');
+            drawEvents();
+        </script>
+    </body>
+</html>
